@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=10">
+	<title>Work 4. DevOps</title>
+</head>
+
+<body>
+	<div class="form-group">
+	    <label for="param-1">Dlina string (<span id="password-length">10</span>)</label>
+	    <input type="range" class="form-control" id="param-1" value="10">
+	</div>
+
+	<div class="checkbox">
+	    <label>
+                <input type="checkbox" id="param-2"> Chisla
+            </label>
+	</div>
+
+	<div class="checkbox">
+	    <label>
+                <input type="checkbox" id="param-3"> String bukv
+            </label>
+	</div>
+
+ <div class="checkbox">
+            <label>
+                <input type="checkbox" id="param-4"> Specialus symvolus
+            </label>
+        </div>
+	
+	<div class="row">
+	    <div class="col-lg-12">
+                <div id="out"></div>
+            </div>
+	</div>
+	<button type="submit" id="generator" class="btn btn-default">Submit</button>
+
+	<script>
+	    console.log('dsd');
+  document.getElementById('password-length').innerHTML = 
+  document.getElementById('param-1').value;
+
+var arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+var arr3 = ['a', 'b', 'c', 'd'];
+var ss = ['!', '@', '$', '&', '*'];
+
+document.getElementById('param-1').oninput = function () {
+        console.log(this.value);
+        document.getElementById('password-length').innerHTML = this.value;
+}
+
+	document.getElementById('generator').onclick = generatePass;
+
+	function generatePass() {
+	    var result = [];
+	    if (document.getElementById('param-2').checked) {
+		result = result.concat(arr2);
+	    }
+            if (document.getElementById('param-3').checked) {
+                result = result.concat(arr3);
+            }
+	    if (document.getElementById('param-4').checked) {
+                result = result.concat(ss);
+            }
+	    result.sort(compareRandom);
+	    document.getElementById('out').innerHTML = '';
+	    for (var k = 0; k < 6; k++) {
+	        var pass = '';
+		var passLength = parseInt(document.getElementById('param-1').value);
+		for (var i = 0; i < passLength; i++) {
+		    pass += result[randomInteger(0, result.length - 1)];
+		}
+		document.getElementById('out').innerHTML += '<p>' + pass + '</p>';
+	    }
+	}
+
+	function compareRandom(a, b) {
+	    return Math.random() - 0.5;
+	}
+
+	function randomInteger(min, max) {
+	    var rand = min - 0.5 + Math.random() * (max - min + 1);
+	    rand = Math.round(rand);
+	    return rand;
+	}
+
+	</script>
+</body>
+
+</html>
+
